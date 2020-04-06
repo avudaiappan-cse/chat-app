@@ -37,8 +37,11 @@ io.on("connection", (socket) => {
     if (filter.isProfane(message) || message==="") {
       return callback("not delivered!");
     }
-    io.to(user.room).emit("message", generateMessage(user.username,message));
-    callback("delivered!");
+    if(user){
+        io.to(user.room).emit("message", generateMessage(user.username,message));
+        callback("delivered!");
+    }
+    
   });
 
 
